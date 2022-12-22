@@ -6,18 +6,22 @@ Below, I show the model's predictions for league champion based on 10,0000 simul
 
 ## Champion Predictions
 
-| Club | Prob. |
-| ---- | ----- |
-| Arsenal | 46.62% |
-| Manchester City | 45.00% |
-| Tottenham | 3.17% |
-| Newcastle | 2.84% |
-| Manchester United | 1.18 % |
-| Liverpool | 0.68% |
-| Chelsea | 0.43% |
-| Brighton | 0.07% |
-| Crystal Palace | 0.01% |
-| All Others | <0.01% |
+Champion probabilities by club.
+I've included [FiveThirtyEight's](https://projects.fivethirtyeight.com/soccer-predictions/premier-league/) forecast as of 11-13-2022 for comparision.
+We have the same top nine clubs but in different orders.
+
+| Club | Prob. | FiveThirtyEight Prob. |
+| ---- | ----- | --------------------- |
+| Arsenal | 46.62% | 36% |
+| Manchester City | 45.00% | 53% |
+| Tottenham | 3.17% | 2% |
+| Newcastle | 2.84% | 2% |
+| Manchester United | 1.18 % | 2% |
+| Liverpool | 0.68% | 3% |
+| Chelsea | 0.43% | <1% |
+| Brighton | 0.07% | <1% |
+| Crystal Palace | 0.01% | <1% |
+| All Others | <0.01% | <1% |
 
 ## About
 

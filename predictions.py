@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from scipy.stats import norm, gamma, poisson
+import random
 
 # read in data
 matches = pd.read_csv("spi_matches_latest.csv")
@@ -52,7 +53,7 @@ def sim_season(matches):
 
     return(matches)
 
-def get_points(sim_season, cur_table):
+def get_sim_results(sim_season, cur_table):
     clubs = sorted(sim_season.team1.unique())
 
     points = []
@@ -63,8 +64,14 @@ def get_points(sim_season, cur_table):
         points.append(cur_points + team1_points + team2_points)
     
     results = pd.DataFrame({"club": clubs, "points": points}).sort_values(by=["points"], ascending=False)
+    results["rank"] = range(1, 21)
 
     return(results)
 
+champions = []
+np.random.seed(2022)
+for i in range(1, 1001):
+    champions.append(get_sim_results(sim_season(test), table).iloc[0, 0])
+
 if __name__ == '__main__':
-    print(get_points(sim_season(test), table))
+    print(np.unique(champions, return_counts=True))

@@ -70,7 +70,7 @@ def get_sim_results(sim_season, cur_table):
 
 champions = []
 np.random.seed(2022)
-for i in range(1, 1001):
+for i in range(1, 10001):
     champions.append(get_sim_results(sim_season(test), table).iloc[0, 0])
 
 if __name__ == '__main__':

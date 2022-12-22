@@ -4,17 +4,20 @@ Model predicting the outcome of the 2022 English Premier League season.
 
 ## Champion Predictions
 
+Based on 10,000 model simulations:
+
 | Club | Prob. |
 | ---- | ----- |
-| Arsenal | 46.4% |
-| Manchester City | 44.5% |
-| Tottenham | 3.8% |
-| Newcastle | 3.2% |
-| Manchester United | 1.2 % |
-| Liverpool | 0.7% |
-| Chelsea | 0.1% |
-| Brighton | 0.1% |
-| All Others | <0.1% |
+| Arsenal | 46.62% |
+| Manchester City | 45.00% |
+| Tottenham | 3.17% |
+| Newcastle | 2.84% |
+| Manchester United | 1.18 % |
+| Liverpool | 0.68% |
+| Chelsea | 0.43% |
+| Brighton | 0.07% |
+| Crystal Palace | 0.01% |
+| All Others | <0.01% |
 
 ## Data
 

@@ -6,6 +6,7 @@ from scipy.stats import norm, gamma, poisson
 
 # read in data
 matches = pd.read_csv("spi_matches_latest.csv")
+table = pd.read_csv("league_table.csv")
 matches["spi_diff"] = matches.spi1 - matches.spi2
 matches["xg_diff"] = matches.xg1 - matches.xg2
 matches["xg_total"] = matches.xg1 + matches.xg2
@@ -51,5 +52,19 @@ def sim_season(matches):
 
     return(matches)
 
+def get_points(sim_season, cur_table):
+    clubs = sorted(sim_season.team1.unique())
+
+    points = []
+    for i in clubs:
+        cur_points = sum(cur_table[cur_table.Team == i].Points)
+        team1_points = sum(sim_season[sim_season.team1 == i].points1)
+        team2_points = sum(sim_season[sim_season.team2 == i].points2)
+        points.append(cur_points + team1_points + team2_points)
+    
+    results = pd.DataFrame({"club": clubs, "points": points}).sort_values(by=["points"], ascending=False)
+
+    return(results)
+
 if __name__ == '__main__':
-    print(sim_season(test).to_csv("test_sim.csv"))
+    print(get_points(sim_season(test), table))

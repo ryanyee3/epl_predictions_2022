@@ -3,7 +3,6 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from scipy.stats import norm, gamma, poisson
-import random
 
 # read in data
 matches = pd.read_csv("spi_matches_latest.csv")
@@ -75,3 +74,5 @@ for i in range(1, 10001):
 
 if __name__ == '__main__':
     print(np.unique(champions, return_counts=True))
+
+    

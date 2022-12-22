@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
-
+from sklearn.metrics import mean_squared_error
+from scipy.stats import norm, gamma, poisson
 
 # read in data
 matches = pd.read_csv("spi_matches_latest.csv")
@@ -12,15 +13,35 @@ matches["score_diff"] = matches.score1 - matches.score2
 
 # split data into train and test
 train = matches.dropna()
-test = matches[(matches.league == "Barclays Premier League") & (matches.date > "2022-12-25")]
+test = matches[(matches.league == "Barclays Premier League") & (matches.date > "2022-12-25")].iloc[:, 0:8]
+test["spi_diff"] = test.spi1 -test.spi2
 
-# train model to predict xg_diff for test data
+# train model to predict xg_diff
 X_train = np.array(train.spi_diff).reshape(-1, 1)
 y_train = np.array(train.xg_diff)
 xg_diff_lm_fit = LinearRegression().fit(X_train, y_train)
+xg_diff_lm_sigma = mean_squared_error(y_train, xg_diff_lm_fit.predict(X_train))
 
-X_test = np.array(test.spi_diff).reshape(-1, 1)
-test["xg_diff"] = xg_diff_lm_fit.predict(X_test)
+# function to simulate season
+def sim_season(matches):
+    n = len(matches)
+
+    # get xg_diff predictions
+    X_test = np.array(matches.spi_diff).reshape(-1, 1)
+    matches["predicted_xg_diff"] = norm.rvs(loc=xg_diff_lm_fit.predict(X_test), scale=xg_diff_lm_sigma, size=n)
+
+    # get xg_total predictions
+    matches["predicted_xg_total"] = gamma.rvs(a=2.35*2.5, scale=1/2.5, size=n) + abs(matches.predicted_xg_diff)
+
+    # calculated predicted xg for each team
+    matches["predicted_xg1"] = (matches.predicted_xg_total + matches.predicted_xg_diff) / 2
+    matches["predicted_xg2"] = (matches.predicted_xg_total - matches.predicted_xg_diff) / 2
+
+    # get predicted score
+    matches["predicted_score1"] = poisson.rvs(mu=matches.predicted_xg1, size=n)
+    matches["predicted_score2"] = poisson.rvs(mu=matches.predicted_xg2, size=n)
+
+    return(matches)
 
 if __name__ == '__main__':
-    pass
+    print(sim_season(test))

@@ -41,7 +41,15 @@ def sim_season(matches):
     matches["predicted_score1"] = poisson.rvs(mu=matches.predicted_xg1, size=n)
     matches["predicted_score2"] = poisson.rvs(mu=matches.predicted_xg2, size=n)
 
+    # calculate points
+    condition_list = [
+        matches.predicted_score1 > matches.predicted_score2,
+        matches.predicted_score1 == matches.predicted_score2
+    ]
+    matches["points1"] = np.select(condition_list, [3, 1], default=0)
+    matches["points2"] = np.select(condition_list, [0, 1], default=3)
+
     return(matches)
 
 if __name__ == '__main__':
-    print(sim_season(test))
+    print(sim_season(test).to_csv("test_sim.csv"))

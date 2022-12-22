@@ -1,6 +1,8 @@
 # English Premier League 2022 Predictions
 
-Model predicting the outcome of the 2022 English Premier League season. The model simulates each game individually, so it is capable of making game by game predictions. Below, I show the model's predictions for league champion based on 10,0000 simulations of the season after returning from the world cup.
+Model predicting the outcome of the 2022 English Premier League season.
+The model simulates each game individually, so it is capable of making game by game predictions.
+Below, I show the model's predictions for league champion based on 10,0000 simulations of the season after returning from the world cup.
 
 ## Champion Predictions
 
@@ -17,7 +19,14 @@ Model predicting the outcome of the 2022 English Premier League season. The mode
 | Crystal Palace | 0.01% |
 | All Others | <0.01% |
 
+## About
+
+`exploratory.ipynb` has some nice graphs and justifications for some modeling decisions.
+`predictions.py` contains the model and code used to get the champion probabilities.
+
 ## Data
 
-[FiveThirtyEight SPI Data](https://github.com/fivethirtyeight/data/tree/master/soccer-spi) was used for this project. `spi_matches_latest.csv` was downloaded on 12-04-2022. 
+[FiveThirtyEight SPI Data](https://github.com/fivethirtyeight/data/tree/master/soccer-spi) was used for this project. 
+`spi_matches_latest.csv` was downloaded on 12-04-2022.
+`league_table.csv` contains the league table as of 12-25-2022 -- the last day before the Premier League returns from the World Cup break.
 
